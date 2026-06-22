@@ -17,9 +17,16 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone', 20)->nullable();
+            $table->string('avatar')->nullable();
+            $table->boolean('is_active')->default(1)->index();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
+
+        // Add check constraint for is_active
+        DB::statement('ALTER TABLE users ADD CONSTRAINT chk_users_is_active CHECK (is_active IN (0, 1))');
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
