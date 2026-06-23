@@ -29,4 +29,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     // Offers Management
     Route::resource('offers', \App\Http\Controllers\Admin\OfferController::class);
     Route::patch('offers/{offer}/toggle-status', [\App\Http\Controllers\Admin\OfferController::class, 'toggleStatus'])->name('offers.toggle-status');
+
+    // Reservations Management
+    Route::resource('reservations', \App\Http\Controllers\Admin\ReservationController::class);
+    Route::patch('reservations/{reservation}/status', [\App\Http\Controllers\Admin\ReservationController::class, 'updateStatus'])->name('reservations.update-status');
 });
