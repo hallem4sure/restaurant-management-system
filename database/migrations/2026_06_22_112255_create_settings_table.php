@@ -19,7 +19,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        DB::statement("ALTER TABLE settings ADD CONSTRAINT chk_settings_type CHECK (type IN ('string', 'integer', 'float', 'boolean', 'json'))");
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement("ALTER TABLE settings ADD CONSTRAINT chk_settings_type CHECK (type IN ('string', 'integer', 'float', 'boolean', 'json'))");
+        }
     }
 
     public function down(): void

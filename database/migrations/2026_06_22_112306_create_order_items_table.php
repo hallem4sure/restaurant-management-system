@@ -26,11 +26,13 @@ return new class extends Migration
             $table->index(['menu_item_id', 'created_at']);
         });
 
-        DB::statement('ALTER TABLE order_items ADD CONSTRAINT chk_order_items_quantity CHECK (quantity >= 1 AND quantity <= 99)');
-        DB::statement('ALTER TABLE order_items ADD CONSTRAINT chk_order_items_unit_price CHECK (unit_price >= 0)');
-        DB::statement('ALTER TABLE order_items ADD CONSTRAINT chk_order_items_discount CHECK (discount_amount >= 0)');
-        DB::statement('ALTER TABLE order_items ADD CONSTRAINT chk_order_items_subtotal CHECK (subtotal >= 0)');
-        DB::statement("ALTER TABLE order_items ADD CONSTRAINT chk_order_items_kitchen_status CHECK (kitchen_status IN ('pending', 'preparing', 'ready', 'served'))");
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement('ALTER TABLE order_items ADD CONSTRAINT chk_order_items_quantity CHECK (quantity >= 1 AND quantity <= 99)');
+            DB::statement('ALTER TABLE order_items ADD CONSTRAINT chk_order_items_unit_price CHECK (unit_price >= 0)');
+            DB::statement('ALTER TABLE order_items ADD CONSTRAINT chk_order_items_discount CHECK (discount_amount >= 0)');
+            DB::statement('ALTER TABLE order_items ADD CONSTRAINT chk_order_items_subtotal CHECK (subtotal >= 0)');
+            DB::statement("ALTER TABLE order_items ADD CONSTRAINT chk_order_items_kitchen_status CHECK (kitchen_status IN ('pending', 'preparing', 'ready', 'served'))");
+        }
     }
 
     public function down(): void

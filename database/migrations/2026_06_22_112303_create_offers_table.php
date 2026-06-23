@@ -28,14 +28,16 @@ return new class extends Migration
             $table->index(['is_active', 'starts_at', 'ends_at']);
         });
 
-        DB::statement("ALTER TABLE offers ADD CONSTRAINT chk_offers_type CHECK (type IN ('percentage', 'fixed'))");
-        DB::statement('ALTER TABLE offers ADD CONSTRAINT chk_offers_value_positive CHECK (value > 0)');
-        DB::statement("ALTER TABLE offers ADD CONSTRAINT chk_offers_percentage_max CHECK (type != 'percentage' OR value <= 100)");
-        DB::statement('ALTER TABLE offers ADD CONSTRAINT chk_offers_min_order CHECK (min_order_amount IS NULL OR min_order_amount >= 0)');
-        DB::statement('ALTER TABLE offers ADD CONSTRAINT chk_offers_max_discount CHECK (max_discount_amount IS NULL OR max_discount_amount > 0)');
-        DB::statement('ALTER TABLE offers ADD CONSTRAINT chk_offers_date_range CHECK (ends_at > starts_at)');
-        DB::statement('ALTER TABLE offers ADD CONSTRAINT chk_offers_time_range CHECK ((applicable_from_time IS NULL AND applicable_to_time IS NULL) OR (applicable_from_time IS NOT NULL AND applicable_to_time IS NOT NULL AND applicable_to_time > applicable_from_time))');
-        DB::statement('ALTER TABLE offers ADD CONSTRAINT chk_offers_is_active CHECK (is_active IN (0, 1))');
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement("ALTER TABLE offers ADD CONSTRAINT chk_offers_type CHECK (type IN ('percentage', 'fixed'))");
+            DB::statement('ALTER TABLE offers ADD CONSTRAINT chk_offers_value_positive CHECK (value > 0)');
+            DB::statement("ALTER TABLE offers ADD CONSTRAINT chk_offers_percentage_max CHECK (type != 'percentage' OR value <= 100)");
+            DB::statement('ALTER TABLE offers ADD CONSTRAINT chk_offers_min_order CHECK (min_order_amount IS NULL OR min_order_amount >= 0)');
+            DB::statement('ALTER TABLE offers ADD CONSTRAINT chk_offers_max_discount CHECK (max_discount_amount IS NULL OR max_discount_amount > 0)');
+            DB::statement('ALTER TABLE offers ADD CONSTRAINT chk_offers_date_range CHECK (ends_at > starts_at)');
+            DB::statement('ALTER TABLE offers ADD CONSTRAINT chk_offers_time_range CHECK ((applicable_from_time IS NULL AND applicable_to_time IS NULL) OR (applicable_from_time IS NOT NULL AND applicable_to_time IS NOT NULL AND applicable_to_time > applicable_from_time))');
+            DB::statement('ALTER TABLE offers ADD CONSTRAINT chk_offers_is_active CHECK (is_active IN (0, 1))');
+        }
     }
 
     public function down(): void

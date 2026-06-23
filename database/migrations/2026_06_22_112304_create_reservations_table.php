@@ -28,10 +28,12 @@ return new class extends Migration
             $table->index(['status', 'reserved_at']);
         });
 
-        DB::statement('ALTER TABLE reservations ADD CONSTRAINT chk_reservations_party_size CHECK (party_size >= 1 AND party_size <= 50)');
-        DB::statement('ALTER TABLE reservations ADD CONSTRAINT chk_reservations_duration CHECK (duration_minutes >= 15 AND duration_minutes <= 480)');
-        DB::statement("ALTER TABLE reservations ADD CONSTRAINT chk_reservations_type CHECK (type IN ('immediate', 'scheduled'))");
-        DB::statement("ALTER TABLE reservations ADD CONSTRAINT chk_reservations_status CHECK (status IN ('pending', 'confirmed', 'seated', 'completed', 'cancelled', 'no_show'))");
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement('ALTER TABLE reservations ADD CONSTRAINT chk_reservations_party_size CHECK (party_size >= 1 AND party_size <= 50)');
+            DB::statement('ALTER TABLE reservations ADD CONSTRAINT chk_reservations_duration CHECK (duration_minutes >= 15 AND duration_minutes <= 480)');
+            DB::statement("ALTER TABLE reservations ADD CONSTRAINT chk_reservations_type CHECK (type IN ('immediate', 'scheduled'))");
+            DB::statement("ALTER TABLE reservations ADD CONSTRAINT chk_reservations_status CHECK (status IN ('pending', 'confirmed', 'seated', 'completed', 'cancelled', 'no_show'))");
+        }
     }
 
     public function down(): void

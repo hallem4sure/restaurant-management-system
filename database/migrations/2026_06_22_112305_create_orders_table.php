@@ -32,13 +32,15 @@ return new class extends Migration
             $table->index(['table_id', 'status']);
         });
 
-        DB::statement("ALTER TABLE orders ADD CONSTRAINT chk_orders_type CHECK (type IN ('walk_in', 'reservation'))");
-        DB::statement("ALTER TABLE orders ADD CONSTRAINT chk_orders_status CHECK (status IN ('pending', 'confirmed', 'preparing', 'ready', 'served', 'completed', 'cancelled'))");
-        DB::statement('ALTER TABLE orders ADD CONSTRAINT chk_orders_subtotal CHECK (subtotal >= 0)');
-        DB::statement('ALTER TABLE orders ADD CONSTRAINT chk_orders_discount CHECK (discount_amount >= 0)');
-        DB::statement('ALTER TABLE orders ADD CONSTRAINT chk_orders_tax_rate CHECK (tax_rate >= 0 AND tax_rate <= 100)');
-        DB::statement('ALTER TABLE orders ADD CONSTRAINT chk_orders_service_rate CHECK (service_charge_rate >= 0 AND service_charge_rate <= 100)');
-        DB::statement('ALTER TABLE orders ADD CONSTRAINT chk_orders_total CHECK (total_amount >= 0)');
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement("ALTER TABLE orders ADD CONSTRAINT chk_orders_type CHECK (type IN ('walk_in', 'reservation'))");
+            DB::statement("ALTER TABLE orders ADD CONSTRAINT chk_orders_status CHECK (status IN ('pending', 'confirmed', 'preparing', 'ready', 'served', 'completed', 'cancelled'))");
+            DB::statement('ALTER TABLE orders ADD CONSTRAINT chk_orders_subtotal CHECK (subtotal >= 0)');
+            DB::statement('ALTER TABLE orders ADD CONSTRAINT chk_orders_discount CHECK (discount_amount >= 0)');
+            DB::statement('ALTER TABLE orders ADD CONSTRAINT chk_orders_tax_rate CHECK (tax_rate >= 0 AND tax_rate <= 100)');
+            DB::statement('ALTER TABLE orders ADD CONSTRAINT chk_orders_service_rate CHECK (service_charge_rate >= 0 AND service_charge_rate <= 100)');
+            DB::statement('ALTER TABLE orders ADD CONSTRAINT chk_orders_total CHECK (total_amount >= 0)');
+        }
     }
 
     public function down(): void

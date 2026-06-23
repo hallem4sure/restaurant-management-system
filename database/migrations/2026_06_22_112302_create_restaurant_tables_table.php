@@ -25,9 +25,11 @@ return new class extends Migration
             $table->index(['type', 'status']);
         });
 
-        DB::statement('ALTER TABLE restaurant_tables ADD CONSTRAINT chk_tables_capacity CHECK (capacity >= 1 AND capacity <= 50)');
-        DB::statement("ALTER TABLE restaurant_tables ADD CONSTRAINT chk_tables_type CHECK (type IN ('public', 'private'))");
-        DB::statement("ALTER TABLE restaurant_tables ADD CONSTRAINT chk_tables_status CHECK (status IN ('available', 'occupied', 'reserved', 'maintenance'))");
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement('ALTER TABLE restaurant_tables ADD CONSTRAINT chk_tables_capacity CHECK (capacity >= 1 AND capacity <= 50)');
+            DB::statement("ALTER TABLE restaurant_tables ADD CONSTRAINT chk_tables_type CHECK (type IN ('public', 'private'))");
+            DB::statement("ALTER TABLE restaurant_tables ADD CONSTRAINT chk_tables_status CHECK (status IN ('available', 'occupied', 'reserved', 'maintenance'))");
+        }
     }
 
     public function down(): void

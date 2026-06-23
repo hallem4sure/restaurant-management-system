@@ -26,10 +26,12 @@ return new class extends Migration
             $table->index(['category_id', 'is_available']);
         });
 
-        DB::statement('ALTER TABLE menu_items ADD CONSTRAINT chk_items_price CHECK (price >= 0)');
-        DB::statement('ALTER TABLE menu_items ADD CONSTRAINT chk_items_prep_time CHECK (preparation_time IS NULL OR preparation_time > 0)');
-        DB::statement('ALTER TABLE menu_items ADD CONSTRAINT chk_items_is_available CHECK (is_available IN (0, 1))');
-        DB::statement('ALTER TABLE menu_items ADD CONSTRAINT chk_items_is_featured CHECK (is_featured IN (0, 1))');
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement('ALTER TABLE menu_items ADD CONSTRAINT chk_items_price CHECK (price >= 0)');
+            DB::statement('ALTER TABLE menu_items ADD CONSTRAINT chk_items_prep_time CHECK (preparation_time IS NULL OR preparation_time > 0)');
+            DB::statement('ALTER TABLE menu_items ADD CONSTRAINT chk_items_is_available CHECK (is_available IN (0, 1))');
+            DB::statement('ALTER TABLE menu_items ADD CONSTRAINT chk_items_is_featured CHECK (is_featured IN (0, 1))');
+        }
     }
 
     public function down(): void

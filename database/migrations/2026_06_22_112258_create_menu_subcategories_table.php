@@ -20,7 +20,9 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        DB::statement('ALTER TABLE menu_subcategories ADD CONSTRAINT chk_subcategories_is_active CHECK (is_active IN (0, 1))');
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement('ALTER TABLE menu_subcategories ADD CONSTRAINT chk_subcategories_is_active CHECK (is_active IN (0, 1))');
+        }
     }
 
     public function down(): void

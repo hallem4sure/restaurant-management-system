@@ -29,14 +29,16 @@ return new class extends Migration
             $table->index(['paid_at', 'total_amount']);
         });
 
-        DB::statement("ALTER TABLE bills ADD CONSTRAINT chk_bills_payment_method CHECK (payment_method IN ('cash', 'card', 'digital_wallet'))");
-        DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_subtotal CHECK (subtotal >= 0)');
-        DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_discount CHECK (discount_amount >= 0)');
-        DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_tax CHECK (tax_amount >= 0)');
-        DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_service_charge CHECK (service_charge_amount >= 0)');
-        DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_total CHECK (total_amount >= 0)');
-        DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_amount_paid CHECK (amount_paid >= 0)');
-        DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_change CHECK (change_amount >= 0)');
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement("ALTER TABLE bills ADD CONSTRAINT chk_bills_payment_method CHECK (payment_method IN ('cash', 'card', 'digital_wallet'))");
+            DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_subtotal CHECK (subtotal >= 0)');
+            DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_discount CHECK (discount_amount >= 0)');
+            DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_tax CHECK (tax_amount >= 0)');
+            DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_service_charge CHECK (service_charge_amount >= 0)');
+            DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_total CHECK (total_amount >= 0)');
+            DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_amount_paid CHECK (amount_paid >= 0)');
+            DB::statement('ALTER TABLE bills ADD CONSTRAINT chk_bills_change CHECK (change_amount >= 0)');
+        }
     }
 
     public function down(): void

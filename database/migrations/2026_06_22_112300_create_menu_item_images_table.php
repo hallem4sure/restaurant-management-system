@@ -21,7 +21,9 @@ return new class extends Migration
             $table->index(['menu_item_id', 'is_primary']);
         });
 
-        DB::statement('ALTER TABLE menu_item_images ADD CONSTRAINT chk_item_images_is_primary CHECK (is_primary IN (0, 1))');
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement('ALTER TABLE menu_item_images ADD CONSTRAINT chk_item_images_is_primary CHECK (is_primary IN (0, 1))');
+        }
     }
 
     public function down(): void
