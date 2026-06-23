@@ -27,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
             \App\Contracts\Services\ReservationServiceInterface::class,
             \App\Services\ReservationService::class
         );
+        $this->app->bind(
+            \App\Contracts\Services\OrderServiceInterface::class,
+            \App\Services\OrderService::class
+        );
     }
 
     /**
