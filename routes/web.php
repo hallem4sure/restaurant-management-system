@@ -37,4 +37,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|waiter|c
     // Orders Management
     Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class);
     Route::patch('orders/{order}/status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.update-status');
+
+    // Kitchen Management
+    Route::get('kitchen', [\App\Http\Controllers\Admin\KitchenController::class, 'index'])->name('kitchen.index');
+    Route::patch('kitchen/item/{item}/status', [\App\Http\Controllers\Admin\KitchenController::class, 'updateItemStatus'])->name('kitchen.item.update-status');
+    Route::patch('kitchen/order/{order}/status', [\App\Http\Controllers\Admin\KitchenController::class, 'updateOrderStatus'])->name('kitchen.order.update-status');
 });

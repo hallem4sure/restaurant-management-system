@@ -316,6 +316,18 @@ return [
             'text' => 'search',
         ],
         [
+            'text' => 'Kitchen Dashboard',
+            'url'  => 'admin/kitchen',
+            'icon' => 'fas fa-fw fa-utensils',
+            'can'  => 'view kitchen',
+        ],
+        [
+            'text' => 'Orders',
+            'url'  => 'admin/orders',
+            'icon' => 'fas fa-fw fa-receipt',
+            'can'  => 'view orders',
+        ],
+        [
             'text' => 'blog',
             'url' => 'admin/blog',
             'can' => 'manage-blog',
