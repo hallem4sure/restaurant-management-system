@@ -3,6 +3,22 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Contracts\Services\MenuServiceInterface;
+use App\Services\MenuService;
+use App\Contracts\Services\TableServiceInterface;
+use App\Services\TableService;
+use App\Contracts\Services\OfferServiceInterface;
+use App\Services\OfferService;
+use App\Contracts\Services\ReservationServiceInterface;
+use App\Services\ReservationService;
+use App\Contracts\Services\OrderServiceInterface;
+use App\Services\OrderService;
+use App\Contracts\Services\KitchenServiceInterface;
+use App\Services\KitchenService;
+use App\Contracts\Services\BillServiceInterface;
+use App\Services\BillService;
+use App\Contracts\Services\UserServiceInterface;
+use App\Services\UserService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,6 +54,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Contracts\Services\BillServiceInterface::class,
             \App\Services\BillService::class
+        );
+        $this->app->bind(
+            \App\Contracts\Services\UserServiceInterface::class,
+            \App\Services\UserService::class
         );
     }
 

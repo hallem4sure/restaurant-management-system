@@ -347,6 +347,12 @@ return [
         ],
         ['header' => 'account_settings'],
         [
+            'text' => 'Staff & Users',
+            'url'  => 'admin/users',
+            'icon' => 'fas fa-fw fa-users-cog',
+            'can'  => 'manage users',
+        ],
+        [
             'text' => 'profile',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
