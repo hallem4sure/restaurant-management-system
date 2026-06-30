@@ -53,8 +53,18 @@
     <div class="invoice-header">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <h2><i class="fas fa-utensils mr-2"></i>{{ config('app.name') }}</h2>
-                <p class="mb-0 text-light">Official Tax Invoice</p>
+                @if(setting('general.restaurant_logo'))
+                    <img src="{{ asset(setting('general.restaurant_logo')) }}" alt="Logo" style="max-height:70px; max-width:200px; margin-bottom:8px;"><br>
+                @else
+                    <h2><i class="fas fa-utensils mr-2"></i>{{ setting('general.restaurant_name', config('app.name')) }}</h2>
+                @endif
+                @if(setting('general.restaurant_address'))
+                    <p class="mb-0 text-light"><small>{{ setting('general.restaurant_address') }}</small></p>
+                @endif
+                @if(setting('general.restaurant_phone'))
+                    <p class="mb-0 text-light"><small><i class="fas fa-phone mr-1"></i>{{ setting('general.restaurant_phone') }}</small></p>
+                @endif
+                <p class="mb-0 text-light mt-1">Official Tax Invoice</p>
             </div>
             <div class="col-md-6 text-md-right">
                 <h4 class="mb-1">INVOICE</h4>
@@ -130,8 +140,13 @@
                             @endif
                         </td>
                         <td class="text-center">{{ $item->quantity }}</td>
-                        <td class="text-right">{{ number_format($item->unit_price, 2) }}</td>
-                        <td class="text-right"><strong>{{ number_format($item->unit_price * $item->quantity, 2) }}</strong></td>
+                        <td class="text-right">
+                            @php $sym = setting('billing.currency_symbol', '$'); $pos = setting('billing.currency_position', 'before'); @endphp
+                            {{ $pos === 'before' ? $sym . number_format($item->unit_price, 2) : number_format($item->unit_price, 2) . $sym }}
+                        </td>
+                        <td class="text-right"><strong>
+                            {{ $pos === 'before' ? $sym . number_format($item->unit_price * $item->quantity, 2) : number_format($item->unit_price * $item->quantity, 2) . $sym }}
+                        </strong></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -142,27 +157,28 @@
         <div class="row justify-content-end">
             <div class="col-md-5">
                 <table class="table totals-table border">
+                    @php $sym = setting('billing.currency_symbol', '$'); $pos = setting('billing.currency_position', 'before'); @endphp
                     <tr>
                         <td class="text-muted">Subtotal</td>
-                        <td class="text-right">{{ number_format($bill->subtotal, 2) }}</td>
+                        <td class="text-right">{{ $pos === 'before' ? $sym . number_format($bill->subtotal, 2) : number_format($bill->subtotal, 2) . $sym }}</td>
                     </tr>
                     @if($bill->discount_amount > 0)
                     <tr>
                         <td class="text-danger">Discount</td>
-                        <td class="text-right text-danger">− {{ number_format($bill->discount_amount, 2) }}</td>
+                        <td class="text-right text-danger">− {{ $pos === 'before' ? $sym . number_format($bill->discount_amount, 2) : number_format($bill->discount_amount, 2) . $sym }}</td>
                     </tr>
                     @endif
                     <tr>
                         <td class="text-muted">Tax</td>
-                        <td class="text-right">{{ number_format($bill->tax_amount, 2) }}</td>
+                        <td class="text-right">{{ $pos === 'before' ? $sym . number_format($bill->tax_amount, 2) : number_format($bill->tax_amount, 2) . $sym }}</td>
                     </tr>
                     <tr>
                         <td class="text-muted">Service Charge</td>
-                        <td class="text-right">{{ number_format($bill->service_charge_amount, 2) }}</td>
+                        <td class="text-right">{{ $pos === 'before' ? $sym . number_format($bill->service_charge_amount, 2) : number_format($bill->service_charge_amount, 2) . $sym }}</td>
                     </tr>
                     <tr class="grand-total">
                         <td><strong>GRAND TOTAL</strong></td>
-                        <td class="text-right"><strong>{{ number_format($bill->total_amount, 2) }}</strong></td>
+                        <td class="text-right"><strong>{{ $pos === 'before' ? $sym . number_format($bill->total_amount, 2) : number_format($bill->total_amount, 2) . $sym }}</strong></td>
                     </tr>
                 </table>
             </div>
@@ -175,7 +191,9 @@
         @endif
 
         <hr>
-        <p class="text-center text-muted mb-0"><small>Thank you for dining with us! &bull; {{ config('app.name') }}</small></p>
+        <p class="text-center text-muted mb-0">
+            <small>{{ setting('billing.receipt_footer', 'Thank you for dining with us!') }} &bull; {{ setting('general.restaurant_name', config('app.name')) }}</small>
+        </p>
     </div>
 </div>
 @stop

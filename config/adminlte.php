@@ -353,9 +353,10 @@ return [
             'can'  => 'manage users',
         ],
         [
-            'text' => 'profile',
+            'text' => 'General Settings',
             'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-cogs',
+            'can'  => 'manage settings',
         ],
         [
             'text' => 'change_password',

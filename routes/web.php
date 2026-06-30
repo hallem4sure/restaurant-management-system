@@ -50,4 +50,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|waiter|c
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->except(['show']);
     Route::patch('users/{user}/toggle-status', [\App\Http\Controllers\Admin\UserController::class, 'toggleStatus'])->name('users.toggle-status');
     Route::patch('users/{user}/reset-password', [\App\Http\Controllers\Admin\UserController::class, 'resetPassword'])->name('users.reset-password');
+
+    // Settings Management
+    Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+    Route::post('settings', [\App\Http\Controllers\Admin\SettingController::class, 'store'])->name('settings.store');
 });

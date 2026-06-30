@@ -103,7 +103,7 @@
                     <div class="form-group">
                         <label for="amount_paid" class="font-weight-bold">Amount Paid <span class="text-danger">*</span></label>
                         <div class="input-group input-group-lg">
-                            <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                            <div class="input-group-prepend"><span class="input-group-text">{{ setting('billing.currency_symbol', '$') }}</span></div>
                             <input type="number" step="0.01" min="{{ $bill->total_amount }}" name="amount_paid" id="amount_paid"
                                    class="form-control @error('amount_paid') is-invalid @enderror"
                                    value="{{ old('amount_paid', number_format($bill->total_amount, 2, '.', '')) }}"
@@ -163,12 +163,17 @@
         document.getElementById('payment_method').value = method;
     }
 
-    function calcChange() {
-        const paid = parseFloat(document.getElementById('amount_paid').value) || 0;
-        const change = Math.max(0, paid - totalAmount);
-        document.getElementById('changeDisplay').textContent = '$' + change.toFixed(2);
-        document.getElementById('changeDisplay').style.color = change > 0 ? '#28a745' : '#6c757d';
-    }
+        const changeSymbol = '{{ setting('billing.currency_symbol', '$') }}';
+        const changePos = '{{ setting('billing.currency_position', 'before') }}';
+
+        function calcChange() {
+            const paid = parseFloat(document.getElementById('amount_paid').value) || 0;
+            const change = Math.max(0, paid - totalAmount);
+            const formatted = change.toFixed(2);
+            const display = changePos === 'before' ? changeSymbol + formatted : formatted + changeSymbol;
+            document.getElementById('changeDisplay').textContent = display;
+            document.getElementById('changeDisplay').style.color = change > 0 ? '#28a745' : '#6c757d';
+        }
 
     document.getElementById('amount_paid').addEventListener('input', calcChange);
 

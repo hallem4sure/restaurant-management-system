@@ -19,6 +19,8 @@ use App\Contracts\Services\BillServiceInterface;
 use App\Services\BillService;
 use App\Contracts\Services\UserServiceInterface;
 use App\Services\UserService;
+use App\Contracts\Services\SettingServiceInterface;
+use App\Services\SettingService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -58,6 +60,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Contracts\Services\UserServiceInterface::class,
             \App\Services\UserService::class
+        );
+        $this->app->bind(
+            \App\Contracts\Services\SettingServiceInterface::class,
+            \App\Services\SettingService::class
         );
     }
 

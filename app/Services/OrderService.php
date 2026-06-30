@@ -48,9 +48,8 @@ class OrderService implements OrderServiceInterface
                 $subtotal += $itemSubtotal;
             }
 
-            // Defaults – TODO: replace with Settings::get() once Settings module is complete
-            $taxRate = 5;
-            $serviceChargeRate = 10;
+            $taxRate = (float) setting('billing.tax_rate', 0);
+            $serviceChargeRate = (float) setting('billing.service_charge_rate', 0);
             
             $taxAmount = ($subtotal * $taxRate) / 100;
             $serviceChargeAmount = ($subtotal * $serviceChargeRate) / 100;

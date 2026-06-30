@@ -65,6 +65,48 @@ class SettingsSeeder extends Seeder
                 'label' => 'Receipt Footer',
                 'type'  => 'string',
             ],
+            [
+                'key'   => 'general.restaurant_logo',
+                'value' => '',
+                'group' => 'general',
+                'label' => 'Restaurant Logo',
+                'type'  => 'string',
+            ],
+            [
+                'key'   => 'billing.currency_position',
+                'value' => 'before',
+                'group' => 'billing',
+                'label' => 'Currency Position',
+                'type'  => 'string',
+            ],
+            [
+                'key'   => 'billing.receipt_width',
+                'value' => '80',
+                'group' => 'billing',
+                'label' => 'Receipt Width',
+                'type'  => 'string',
+            ],
+            [
+                'key'   => 'general.opening_time',
+                'value' => '09:00',
+                'group' => 'general',
+                'label' => 'Opening Time',
+                'type'  => 'string',
+            ],
+            [
+                'key'   => 'general.closing_time',
+                'value' => '22:00',
+                'group' => 'general',
+                'label' => 'Closing Time',
+                'type'  => 'string',
+            ],
+            [
+                'key'   => 'general.closed_days',
+                'value' => 'None',
+                'group' => 'general',
+                'label' => 'Closed Days',
+                'type'  => 'string',
+            ],
         ];
 
         foreach ($settings as $setting) {

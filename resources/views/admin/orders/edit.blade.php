@@ -202,8 +202,8 @@
         let itemIndex = 999;
         const tbody = document.getElementById('items-body');
         const template = document.getElementById('item-row-template').innerHTML;
-        const taxRate = parseFloat(document.getElementById('tax-rate').innerText) || 0;
-        const svcRate = parseFloat(document.getElementById('svc-rate').innerText) || 0;
+        const taxRate = {{ setting('billing.tax_rate', 0) }};
+        const svcRate = {{ setting('billing.service_charge_rate', 0) }};
 
         function addRow() {
             const html = template.replace(/__INDEX__/g, itemIndex);
