@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{{ setting('restaurant.name', 'Restaurant') }} - Report ({{ ucfirst($activeTab) }})</title>
+    <title>{{ setting('general.restaurant_name', 'Restaurant') }} - Report ({{ ucfirst($activeTab) }})</title>
     <style>
         body { font-family: Arial, sans-serif; font-size: 14px; margin: 0; padding: 20px; }
         .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #ddd; padding-bottom: 20px; }
@@ -25,10 +25,10 @@
 <body onload="window.print();">
 
     <div class="header">
-        @if(setting('restaurant.logo'))
-            <img src="{{ Storage::url(setting('restaurant.logo')) }}" class="logo" alt="Logo">
+        @if(setting('general.restaurant_logo'))
+            <img src="{{ asset(setting('general.restaurant_logo')) }}" class="logo" alt="Logo">
         @endif
-        <div class="title">{{ setting('restaurant.name', 'Restaurant') }}</div>
+        <div class="title">{{ setting('general.restaurant_name', 'Restaurant') }}</div>
         <h2>{{ ucfirst($activeTab) }} Report</h2>
         
         <div class="meta">

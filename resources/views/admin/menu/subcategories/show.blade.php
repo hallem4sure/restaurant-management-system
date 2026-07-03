@@ -2,6 +2,14 @@
 
 @section('page_title', 'Menu Subcategory Details')
 
+@section('breadcrumbs')
+    @include('partials.breadcrumbs', ['crumbs' => [
+        ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+        ['label' => 'Menu Subcategories', 'url' => route('admin.menu-subcategories.index')],
+        ['label' => $menuSubcategory->name],
+    ]])
+@endsection
+
 @section('main_content')
 <div class="card">
     <div class="card-header">

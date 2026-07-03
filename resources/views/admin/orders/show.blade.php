@@ -2,6 +2,14 @@
 
 @section('page_title', 'Order Details')
 
+@section('breadcrumbs')
+    @include('partials.breadcrumbs', ['crumbs' => [
+        ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+        ['label' => 'Orders', 'url' => route('admin.orders.index')],
+        ['label' => 'Order #' . $order->order_number],
+    ]])
+@endsection
+
 @section('main_content')
 <div class="row">
     <div class="col-md-8">

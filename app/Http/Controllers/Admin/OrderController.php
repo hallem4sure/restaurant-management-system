@@ -34,8 +34,8 @@ class OrderController extends Controller
         $tables = RestaurantTable::all();
         $reservations = Reservation::whereIn('status', ['confirmed', 'seated'])->get();
         $menuItems = MenuItem::where('is_available', true)->get();
-        $taxRate = 5; // Default pending settings
-        $serviceChargeRate = 10;
+        $taxRate = setting('billing.tax_rate', 0);
+        $serviceChargeRate = setting('billing.service_charge_rate', 0);
         return view('admin.orders.create', compact('tables', 'reservations', 'menuItems', 'taxRate', 'serviceChargeRate'));
     }
 

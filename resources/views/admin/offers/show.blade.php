@@ -2,6 +2,14 @@
 
 @section('page_title', 'Offer: ' . $offer->name)
 
+@section('breadcrumbs')
+    @include('partials.breadcrumbs', ['crumbs' => [
+        ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+        ['label' => 'Offers', 'url' => route('admin.offers.index')],
+        ['label' => $offer->name],
+    ]])
+@endsection
+
 @section('main_content')
 <div class="row">
     <div class="col-lg-8">

@@ -2,6 +2,14 @@
 
 @section('page_title', 'Invoice — ' . $bill->bill_number)
 
+@section('breadcrumbs')
+    @include('partials.breadcrumbs', ['crumbs' => [
+        ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+        ['label' => 'Bills / POS', 'url' => route('admin.bills.index')],
+        ['label' => $bill->bill_number],
+    ]])
+@endsection
+
 @section('custom_css')
 <style>
     @media print {

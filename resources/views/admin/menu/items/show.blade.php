@@ -2,6 +2,14 @@
 
 @section('page_title', 'Menu Item Details')
 
+@section('breadcrumbs')
+    @include('partials.breadcrumbs', ['crumbs' => [
+        ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+        ['label' => 'Menu Items', 'url' => route('admin.menu-items.index')],
+        ['label' => $menuItem->name],
+    ]])
+@endsection
+
 @section('main_content')
 <div class="card">
     <div class="card-header">
@@ -57,7 +65,7 @@
                     <dd class="col-sm-9">{{ $menuItem->subcategory->name ?? 'N/A' }}</dd>
 
                     <dt class="col-sm-3">Price</dt>
-                    <dd class="col-sm-9">${{ number_format($menuItem->price, 2) }}</dd>
+                    <dd class="col-sm-9">{{ setting('billing.currency_symbol', '$') }}{{ number_format($menuItem->price, 2) }}</dd>
 
                     <dt class="col-sm-3">Description</dt>
                     <dd class="col-sm-9">{{ $menuItem->description ?? 'N/A' }}</dd>

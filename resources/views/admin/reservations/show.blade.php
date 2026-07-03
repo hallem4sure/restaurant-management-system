@@ -2,6 +2,14 @@
 
 @section('page_title', 'Reservation Details')
 
+@section('breadcrumbs')
+    @include('partials.breadcrumbs', ['crumbs' => [
+        ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+        ['label' => 'Reservations', 'url' => route('admin.reservations.index')],
+        ['label' => 'Reservation #' . $reservation->id],
+    ]])
+@endsection
+
 @section('main_content')
 <div class="row">
     <div class="col-md-8">

@@ -344,18 +344,28 @@ return [
             'submenu' => [
                 [
                     'text' => 'Menu Items',
-                    'url'  => 'admin/menu/items',
+                    'url'  => 'admin/menu-items',
                     'icon' => 'fas fa-fw fa-hamburger',
                 ],
                 [
                     'text' => 'Categories',
-                    'url'  => 'admin/menu/categories',
+                    'url'  => 'admin/menu-categories',
                     'icon' => 'fas fa-fw fa-tags',
                 ],
                 [
+                    'text' => 'Subcategories',
+                    'url'  => 'admin/menu-subcategories',
+                    'icon' => 'fas fa-fw fa-list-ul',
+                ],
+                [
                     'text' => 'Sections',
-                    'url'  => 'admin/menu/sections',
+                    'url'  => 'admin/menu-sections',
                     'icon' => 'fas fa-fw fa-layer-group',
+                ],
+                [
+                    'text' => 'Tags',
+                    'url'  => 'admin/tags',
+                    'icon' => 'fas fa-fw fa-hashtag',
                 ],
                 [
                     'text' => 'Offers',

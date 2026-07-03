@@ -2,6 +2,14 @@
 
 @section('page_title', 'Table Details')
 
+@section('breadcrumbs')
+    @include('partials.breadcrumbs', ['crumbs' => [
+        ['label' => 'Dashboard', 'url' => route('admin.dashboard')],
+        ['label' => 'Tables', 'url' => route('admin.tables.index')],
+        ['label' => 'Table ' . $table->table_number],
+    ]])
+@endsection
+
 @section('main_content')
 <div class="card">
     <div class="card-header">
