@@ -9,12 +9,12 @@ class OfferPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->can('view offers');
+        return $user->can('manage offers');
     }
 
     public function view(User $user, Offer $offer): bool
     {
-        return $user->can('view offers');
+        return $user->can('manage offers');
     }
 
     public function create(User $user): bool

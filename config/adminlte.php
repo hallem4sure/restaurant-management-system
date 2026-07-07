@@ -367,12 +367,13 @@ return [
                     'url'  => 'admin/tags',
                     'icon' => 'fas fa-fw fa-hashtag',
                 ],
-                [
-                    'text' => 'Offers',
-                    'url'  => 'admin/offers',
-                    'icon' => 'fas fa-fw fa-percent',
-                ],
             ],
+        ],
+        [
+            'text' => 'Offers',
+            'url'  => 'admin/offers',
+            'icon' => 'fas fa-fw fa-percent',
+            'can'  => 'manage offers',
         ],
         [
             'text' => 'Tables',

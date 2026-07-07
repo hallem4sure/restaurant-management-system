@@ -62,17 +62,20 @@ class ReportService implements ReportServiceInterface
             $start = Carbon::parse($startDate)->startOfDay();
             $end = Carbon::parse($endDate)->endOfDay();
 
-            // Grouping format based on SQLite datetime
-            $format = match ($groupBy) {
+            // Grouping format — MySQL uses DATE_FORMAT(), SQLite uses strftime()
+            $mysqlFormat = match ($groupBy) {
                 'month' => '%Y-%m',
-                'year' => '%Y',
-                default => '%Y-%m-%d', // date
+                'year'  => '%Y',
+                default => '%Y-%m-%d',
             };
+            $sqliteFormat = $mysqlFormat; // same tokens happen to match
+
+            $dateExpr = $this->dateFormat('paid_at', $mysqlFormat, $sqliteFormat);
 
             $sales = Bill::where('status', 'paid')
                 ->whereBetween('paid_at', [$start, $end])
                 ->select(
-                    DB::raw("strftime('{$format}', paid_at) as label"),
+                    DB::raw("{$dateExpr} as label"),
                     DB::raw('SUM(total_amount) as total'),
                     DB::raw('COUNT(id) as count')
                 )
@@ -213,7 +216,7 @@ class ReportService implements ReportServiceInterface
 
             $byDay = Reservation::whereBetween('reserved_at', [$start, $end])
                 ->select(
-                    DB::raw("strftime('%Y-%m-%d', reserved_at) as label"),
+                    DB::raw($this->dateFormat('reserved_at', '%Y-%m-%d', '%Y-%m-%d') . ' as label'),
                     DB::raw('COUNT(id) as count')
                 )
                 ->groupBy('label')
@@ -332,5 +335,23 @@ class ReportService implements ReportServiceInterface
     {
         if ($previous == 0) return $current > 0 ? 100.0 : 0.0;
         return round((($current - $previous) / $previous) * 100, 2);
+    }
+
+    /**
+     * Return a DB-driver-aware date-format SQL expression.
+     *
+     * MySQL  : DATE_FORMAT(column, '%Y-%m-%d')
+     * SQLite : strftime('%Y-%m-%d', column)
+     *
+     * Both accept the same %-tokens so a single format string works for both.
+     */
+    private function dateFormat(string $column, string $mysqlFormat, string $sqliteFormat): string
+    {
+        $driver = DB::connection()->getDriverName();
+
+        return match ($driver) {
+            'mysql', 'mariadb' => "DATE_FORMAT({$column}, '{$mysqlFormat}')",
+            default            => "strftime('{$sqliteFormat}', {$column})",
+        };
     }
 }
