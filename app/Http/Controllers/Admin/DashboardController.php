@@ -20,12 +20,13 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // Kitchen staff should only access the Kitchen Dashboard.
-        // All other authenticated roles (admin, waiter, cashier) have 'view reservations'.
-        if (!auth()->user()->can('view reservations')) {
+        // Kitchen staff have their own dedicated dashboard.
+        if (auth()->user()->hasRole('kitchen_staff')) {
             return redirect()->route('admin.kitchen.index');
         }
 
+        // All other roles (admin, waiter, cashier) reach the dashboard.
+        // Per-widget @can directives in the view control what each role actually sees.
         $stats = $this->dashboardService->getStats();
         $revenueChart = $this->dashboardService->getRevenueChart();
         $ordersStatusChart = $this->dashboardService->getOrdersByStatusChart();

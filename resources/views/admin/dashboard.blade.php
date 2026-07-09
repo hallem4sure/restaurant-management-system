@@ -15,9 +15,10 @@
 @stop
 
 @section('main_content')
-    <!-- Small boxes (Stat box) -->
+    <!-- Small boxes (Stat box) — Row 1 -->
     <div class="row">
-        <!-- Today's Revenue -->
+        {{-- Today's Revenue — only roles with view bills (admin, cashier) --}}
+        @can('view bills')
         <div class="col-lg-3 col-6">
             <div class="small-box bg-success">
                 <div class="inner">
@@ -31,8 +32,10 @@
                 <a href="{{ route('admin.bills.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        
-        <!-- Orders Today -->
+        @endcan
+
+        {{-- Orders Today — all order-viewing roles --}}
+        @can('view orders')
         <div class="col-lg-3 col-6">
             <div class="small-box bg-info">
                 <div class="inner">
@@ -45,8 +48,10 @@
                 <a href="{{ route('admin.orders.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        @endcan
 
-        <!-- Pending Orders -->
+        {{-- Pending / Active Orders --}}
+        @can('view orders')
         <div class="col-lg-3 col-6">
             <div class="small-box bg-warning">
                 <div class="inner">
@@ -59,8 +64,10 @@
                 <a href="{{ route('admin.orders.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        @endcan
 
-        <!-- Active Reservations -->
+        {{-- Active Reservations --}}
+        @can('view reservations')
         <div class="col-lg-3 col-6">
             <div class="small-box bg-primary">
                 <div class="inner">
@@ -73,10 +80,13 @@
                 <a href="{{ route('admin.reservations.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        @endcan
     </div>
 
+    <!-- Small boxes — Row 2 -->
     <div class="row">
-        <!-- Occupied Tables -->
+        {{-- Occupied Tables --}}
+        @can('view tables')
         <div class="col-lg-3 col-6">
             <div class="small-box bg-danger">
                 <div class="inner">
@@ -89,8 +99,10 @@
                 <a href="{{ route('admin.tables.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        @endcan
 
-        <!-- Pending Bills -->
+        {{-- Pending Bills — only roles with view bills (admin, cashier) --}}
+        @can('view bills')
         <div class="col-lg-3 col-6">
             <div class="small-box bg-maroon">
                 <div class="inner">
@@ -103,8 +115,10 @@
                 <a href="{{ route('admin.bills.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        @endcan
 
-        <!-- Kitchen Queue -->
+        {{-- Kitchen Queue — only roles with view kitchen (admin, kitchen_staff) --}}
+        @can('view kitchen')
         <div class="col-lg-3 col-6">
             <div class="small-box bg-orange">
                 <div class="inner">
@@ -117,8 +131,10 @@
                 <a href="{{ route('admin.kitchen.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        @endcan
 
-        <!-- Available Tables -->
+        {{-- Available Tables --}}
+        @can('view tables')
         <div class="col-lg-3 col-6">
             <div class="small-box bg-success">
                 <div class="inner">
@@ -131,11 +147,13 @@
                 <a href="{{ route('admin.tables.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        @endcan
     </div>
 
-    <!-- Charts Row -->
+    <!-- Charts Row — revenue chart only for roles with view reports -->
     <div class="row">
-        <!-- Revenue Chart -->
+        @can('view reports')
+        {{-- Revenue Chart --}}
         <div class="col-lg-8">
             <div class="card card-outline card-success">
                 <div class="card-header">
@@ -146,7 +164,7 @@
                 </div>
             </div>
         </div>
-        <!-- Orders by Status -->
+        {{-- Orders by Status --}}
         <div class="col-lg-4">
             <div class="card card-outline card-info">
                 <div class="card-header">
@@ -157,11 +175,27 @@
                 </div>
             </div>
         </div>
+        @else
+        {{-- Waiter: no revenue chart — show a full-width orders status chart instead --}}
+        @can('view orders')
+        <div class="col-lg-12">
+            <div class="card card-outline card-info">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-chart-pie mr-1"></i> Orders by Status</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="ordersStatusChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+            </div>
+        </div>
+        @endcan
+        @endcan
     </div>
 
     <!-- Additional Sections Row -->
     <div class="row">
-        <!-- Recent Orders -->
+        {{-- Recent Orders --}}
+        @can('view orders')
         <div class="col-lg-4">
             <div class="card card-outline card-primary">
                 <div class="card-header">
@@ -182,7 +216,8 @@
                         <tbody>
                             @forelse($recentOrders as $order)
                             <tr>
-                                <td><a href="{{ route('admin.orders.edit', $order) }}">{{ $order->order_number }}</a></td>
+                                {{-- Use show (read-only) route — safe for waiter, cashier, admin --}}
+                                <td><a href="{{ route('admin.orders.show', $order) }}">{{ $order->order_number }}</a></td>
                                 <td>{{ $order->table->table_number ?? 'Walk-in' }}</td>
                                 <td>
                                     @if(in_array($order->status, ['completed']))
@@ -202,8 +237,10 @@
                 </div>
             </div>
         </div>
+        @endcan
 
-        <!-- Top Selling Menu Items -->
+        {{-- Top Selling Menu Items --}}
+        @can('view menu')
         <div class="col-lg-4">
             <div class="card card-outline card-secondary">
                 <div class="card-header">
@@ -226,8 +263,10 @@
                 </div>
             </div>
         </div>
+        @endcan
 
-        <!-- Recent Reservations -->
+        {{-- Recent Reservations --}}
+        @can('view reservations')
         <div class="col-lg-4">
             <div class="card card-outline card-info">
                 <div class="card-header">
@@ -242,7 +281,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Table</th>
-                                <th>Date & Time</th>
+                                <th>Date &amp; Time</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -259,8 +298,9 @@
                     </table>
                 </div>
             </div>
-            
-            <!-- Low Stock Placeholder -->
+
+            {{-- Low Stock Placeholder --}}
+            @can('manage settings')
             <div class="card bg-gradient-dark">
                 <div class="card-header border-0">
                     <h3 class="card-title"><i class="fas fa-boxes mr-1"></i> Inventory Alert (Future)</h3>
@@ -270,7 +310,9 @@
                     <p class="text-muted text-sm mb-0">The inventory management module will populate this card.</p>
                 </div>
             </div>
+            @endcan
         </div>
+        @endcan
     </div>
 @stop
 
@@ -278,8 +320,9 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    
-    // Revenue Chart
+
+    @can('view reports')
+    // Revenue Chart — admin & cashier only
     const revCtx = document.getElementById('revenueChart').getContext('2d');
     new Chart(revCtx, {
         type: 'line',
@@ -303,8 +346,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+    @endcan
 
-    // Orders Status Chart
+    @can('view orders')
+    // Orders Status Chart — all order-viewing roles
     const statusCtx = document.getElementById('ordersStatusChart').getContext('2d');
     new Chart(statusCtx, {
         type: 'doughnut',
@@ -323,6 +368,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+    @endcan
 });
 </script>
 @stop
