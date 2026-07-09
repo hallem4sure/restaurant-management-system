@@ -14,9 +14,11 @@
 <div class="row mb-3">
     <div class="col-12 d-flex justify-content-between align-items-center">
         <p class="text-muted mb-0">Manage top-level menu sections (e.g. Food, Drinks).</p>
+        @can('manage menu')
         <a href="{{ route('admin.menu-sections.create') }}" class="btn btn-primary">
             <i class="fas fa-plus mr-1"></i> Add Section
         </a>
+        @endcan
     </div>
 </div>
 
@@ -26,9 +28,11 @@
             <i class="fas fa-layer-group fa-3x text-muted mb-3"></i>
             <h4 class="text-muted">No Menu Sections Yet</h4>
             <p class="text-muted">Create your first menu section to organize your menu categories.</p>
+            @can('manage menu')
             <a href="{{ route('admin.menu-sections.create') }}" class="btn btn-primary mt-2">
                 <i class="fas fa-plus mr-1"></i> Create First Section
             </a>
+            @endcan
         </div>
     </div>
 @else
@@ -62,6 +66,7 @@
                         </td>
                         <td class="text-center" style="white-space:nowrap;">
                             <a href="{{ route('admin.menu-sections.show', $section) }}" class="btn btn-xs btn-info" title="View Section"><i class="fas fa-eye"></i></a>
+                            @can('manage menu')
                             <a href="{{ route('admin.menu-sections.edit', $section) }}" class="btn btn-xs btn-warning" title="Edit Section"><i class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.menu-sections.destroy', $section) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')
@@ -72,6 +77,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

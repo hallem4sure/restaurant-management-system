@@ -15,9 +15,11 @@
     <div class="card-header">
         <h3 class="card-title">Table: {{ $table->table_number }}</h3>
         <div class="card-tools">
+            @can('manage tables')
             <a href="{{ route('admin.tables.edit', $table) }}" class="btn btn-info btn-sm">
                 <i class="fas fa-edit"></i> Edit
             </a>
+            @endcan
             <a href="{{ route('admin.tables.index') }}" class="btn btn-default btn-sm">
                 <i class="fas fa-arrow-left"></i> Back
             </a>

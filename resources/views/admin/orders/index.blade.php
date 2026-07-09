@@ -13,9 +13,11 @@
 <div class="row mb-3">
     <div class="col-12 d-flex justify-content-between align-items-center">
         <p class="text-muted mb-0">Manage and track all restaurant orders.</p>
+        @can('create', \App\Models\Order::class)
         <a href="{{ route('admin.orders.create') }}" class="btn btn-primary">
             <i class="fas fa-plus mr-1"></i> New Order
         </a>
+        @endcan
     </div>
 </div>
 
@@ -25,9 +27,11 @@
             <i class="fas fa-receipt fa-3x text-muted mb-3"></i>
             <h4 class="text-muted">No Orders Yet</h4>
             <p class="text-muted">There are no orders in the system. Create your first order to get started.</p>
+            @can('create', \App\Models\Order::class)
             <a href="{{ route('admin.orders.create') }}" class="btn btn-primary mt-2">
                 <i class="fas fa-plus mr-1"></i> Create First Order
             </a>
+            @endcan
         </div>
     </div>
 @else
@@ -73,6 +77,7 @@
                             ];
                             $color = $statusColors[$order->status] ?? 'secondary';
                         @endphp
+                        @can('update', $order)
                         <div class="dropdown">
                             <button class="btn btn-{{ $color }} btn-sm dropdown-toggle" type="button"
                                 id="statusMenu{{ $order->id }}" data-toggle="dropdown"
@@ -91,11 +96,16 @@
                                 @endforeach
                             </div>
                         </div>
+                        @else
+                        <span class="badge badge-{{ $color }}">{{ ucfirst(str_replace('_', ' ', $order->status)) }}</span>
+                        @endcan
                     </td>
                     <td><strong>{{ setting('billing.currency_symbol', '$') }}{{ number_format($order->total_amount, 2) }}</strong></td>
                     <td class="text-center" style="white-space:nowrap;">
                         <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-xs btn-info" title="View Order"><i class="fas fa-eye"></i></a>
+                        @can('update', $order)
                         <a href="{{ route('admin.orders.edit', $order) }}" class="btn btn-xs btn-warning" title="Edit Order"><i class="fas fa-edit"></i></a>
+                        @endcan
                         @can('delete', $order)
                         <form action="{{ route('admin.orders.destroy', $order) }}" method="POST" class="d-inline">
                             @csrf @method('DELETE')

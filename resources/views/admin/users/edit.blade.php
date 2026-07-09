@@ -67,6 +67,7 @@
     </div>
 
     {{-- Password Reset Panel --}}
+    @can('manage users')
     <div class="col-md-4">
         <div class="card card-outline card-danger">
             <div class="card-header">
@@ -96,5 +97,6 @@
             </form>
         </div>
     </div>
+    @endcan
 </div>
 @stop

@@ -13,9 +13,11 @@
 <div class="row mb-3">
     <div class="col-12 d-flex justify-content-between align-items-center">
         <p class="text-muted mb-0">Manage system users, roles, and access permissions.</p>
+        @can('manage users')
         <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
             <i class="fas fa-plus mr-1"></i> Add New User
         </a>
+        @endcan
     </div>
 </div>
 
@@ -94,6 +96,7 @@
                         @endforeach
                     </td>
                     <td class="align-middle">
+                        @can('manage users')
                         <form action="{{ route('admin.users.toggle-status', $user) }}" method="POST">
                             @csrf @method('PATCH')
                             @if($user->id !== auth()->id())
@@ -110,8 +113,15 @@
                                 </span>
                             @endif
                         </form>
+                        @else
+                        <span class="badge badge-{{ $user->is_active ? 'success' : 'secondary' }}">
+                            <i class="fas fa-{{ $user->is_active ? 'check-circle' : 'times-circle' }} mr-1"></i>
+                            {{ $user->is_active ? 'Active' : 'Inactive' }}
+                        </span>
+                        @endcan
                     </td>
                     <td class="align-middle text-center" style="white-space:nowrap;">
+                        @can('manage users')
                         <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning" title="Edit User"><i class="fas fa-edit"></i></a>
                         @if($user->id !== auth()->id())
                         <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline">
@@ -124,6 +134,7 @@
                             </button>
                         </form>
                         @endif
+                        @endcan
                     </td>
                 </tr>
                 @empty

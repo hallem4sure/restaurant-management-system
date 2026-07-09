@@ -14,9 +14,11 @@
 <div class="row mb-3">
     <div class="col-12 d-flex justify-content-between align-items-center">
         <p class="text-muted mb-0">Manage subcategories (e.g. Vegetarian, Gluten-Free under Appetizers).</p>
+        @can('manage menu')
         <a href="{{ route('admin.menu-subcategories.create') }}" class="btn btn-primary">
             <i class="fas fa-plus mr-1"></i> Add Subcategory
         </a>
+        @endcan
     </div>
 </div>
 
@@ -26,9 +28,11 @@
             <i class="fas fa-list-alt fa-3x text-muted mb-3"></i>
             <h4 class="text-muted">No Menu Subcategories Yet</h4>
             <p class="text-muted">Create your first subcategory to further organize your menu items.</p>
+            @can('manage menu')
             <a href="{{ route('admin.menu-subcategories.create') }}" class="btn btn-primary mt-2">
                 <i class="fas fa-plus mr-1"></i> Create First Subcategory
             </a>
+            @endcan
         </div>
     </div>
 @else
@@ -70,6 +74,7 @@
                         </td>
                         <td class="text-center" style="white-space:nowrap;">
                             <a href="{{ route('admin.menu-subcategories.show', $subcategory) }}" class="btn btn-xs btn-info" title="View Subcategory"><i class="fas fa-eye"></i></a>
+                            @can('manage menu')
                             <a href="{{ route('admin.menu-subcategories.edit', $subcategory) }}" class="btn btn-xs btn-warning" title="Edit Subcategory"><i class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.menu-subcategories.destroy', $subcategory) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')
@@ -80,6 +85,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

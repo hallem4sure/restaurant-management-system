@@ -14,9 +14,11 @@
 <div class="row mb-3">
     <div class="col-12 d-flex justify-content-between align-items-center">
         <p class="text-muted mb-0">Manage individual menu items, their prices, and availability.</p>
+        @can('manage menu')
         <a href="{{ route('admin.menu-items.create') }}" class="btn btn-primary">
             <i class="fas fa-plus mr-1"></i> Add Menu Item
         </a>
+        @endcan
     </div>
 </div>
 
@@ -26,9 +28,11 @@
             <i class="fas fa-hamburger fa-3x text-muted mb-3"></i>
             <h4 class="text-muted">No Menu Items Yet</h4>
             <p class="text-muted">Start building your menu by adding your first food or drink item.</p>
+            @can('manage menu')
             <a href="{{ route('admin.menu-items.create') }}" class="btn btn-primary mt-2">
                 <i class="fas fa-plus mr-1"></i> Create First Menu Item
             </a>
+            @endcan
         </div>
     </div>
 @else
@@ -80,6 +84,7 @@
                         </td>
                         <td class="align-middle text-center" style="white-space:nowrap;">
                             <a href="{{ route('admin.menu-items.show', $item) }}" class="btn btn-xs btn-info" title="View Item"><i class="fas fa-eye"></i></a>
+                            @can('manage menu')
                             <a href="{{ route('admin.menu-items.edit', $item) }}" class="btn btn-xs btn-warning" title="Edit Item"><i class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.menu-items.destroy', $item) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')
@@ -90,6 +95,7 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

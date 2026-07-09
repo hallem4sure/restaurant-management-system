@@ -17,9 +17,11 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">{{ $offer->name }}</h3>
                 <div>
+                    @can('manage offers')
                     <a href="{{ route('admin.offers.edit', $offer) }}" class="btn btn-warning btn-sm">
                         <i class="fas fa-edit mr-1"></i> Edit
                     </a>
+                    @endcan
                     <a href="{{ route('admin.offers.index') }}" class="btn btn-default btn-sm">
                         <i class="fas fa-arrow-left mr-1"></i> Back
                     </a>

@@ -13,9 +13,11 @@
 <div class="row mb-3">
     <div class="col-12 d-flex justify-content-between align-items-center">
         <p class="text-muted mb-0">Create and manage promotional offers and discounts.</p>
+        @can('manage offers')
         <a href="{{ route('admin.offers.create') }}" class="btn btn-primary">
             <i class="fas fa-plus mr-1"></i> New Offer
         </a>
+        @endcan
     </div>
 </div>
 
@@ -25,9 +27,11 @@
             <i class="fas fa-percent fa-3x text-muted mb-3"></i>
             <h4 class="text-muted">No Offers Yet</h4>
             <p class="text-muted">Create your first promotional offer to attract more customers.</p>
+            @can('manage offers')
             <a href="{{ route('admin.offers.create') }}" class="btn btn-primary mt-2">
                 <i class="fas fa-plus mr-1"></i> Create First Offer
             </a>
+            @endcan
         </div>
     </div>
 @else
@@ -91,6 +95,7 @@
                     </td>
                     <td class="text-center" style="white-space:nowrap;">
                         <a href="{{ route('admin.offers.show', $offer) }}" class="btn btn-xs btn-info" title="View Offer"><i class="fas fa-eye"></i></a>
+                        @can('manage offers')
                         <a href="{{ route('admin.offers.edit', $offer) }}" class="btn btn-xs btn-warning" title="Edit Offer"><i class="fas fa-edit"></i></a>
                         <form action="{{ route('admin.offers.destroy', $offer) }}" method="POST" class="d-inline">
                             @csrf @method('DELETE')
@@ -101,6 +106,7 @@
                                 <i class="fas fa-trash"></i>
                             </button>
                         </form>
+                        @endcan
                     </td>
                 </tr>
                 @endforeach

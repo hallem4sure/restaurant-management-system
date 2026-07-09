@@ -15,9 +15,11 @@
     <div class="card-header">
         <h3 class="card-title">{{ $menuItem->name }}</h3>
         <div class="card-tools">
+            @can('manage menu')
             <a href="{{ route('admin.menu-items.edit', $menuItem) }}" class="btn btn-info btn-sm">
                 <i class="fas fa-edit"></i> Edit
             </a>
+            @endcan
             <a href="{{ route('admin.menu-items.index') }}" class="btn btn-default btn-sm">
                 <i class="fas fa-arrow-left"></i> Back
             </a>
