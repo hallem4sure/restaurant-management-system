@@ -310,6 +310,7 @@ return [
             'text' => 'Dashboard',
             'url'  => 'admin/dashboard',
             'icon' => 'fas fa-fw fa-tachometer-alt',
+            'can'  => 'view reservations',
         ],
         ['header' => 'OPERATIONS'],
         [
@@ -322,7 +323,7 @@ return [
             'text' => 'Orders',
             'url'  => 'admin/orders',
             'icon' => 'fas fa-fw fa-receipt',
-            'can'  => 'view orders',
+            'can'  => 'create orders',
         ],
         [
             'text' => 'Bills / POS',

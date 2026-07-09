@@ -11,39 +11,45 @@ class StaffSeeder extends Seeder
     public function run(): void
     {
         // Waiter
-        $waiter = User::firstOrCreate(
+        $waiter = User::updateOrCreate(
             ['email' => 'waiter@restaurant.com'],
             [
-                'name' => 'John Waiter',
-                'password' => Hash::make('password123'),
-                'phone' => '1112223333',
+                'name'      => 'John Waiter',
+                'password'  => Hash::make('12345678'),
+                'phone'     => '1112223333',
                 'is_active' => true,
             ]
         );
-        $waiter->assignRole('waiter');
+        if (!$waiter->hasRole('waiter')) {
+            $waiter->assignRole('waiter');
+        }
 
         // Cashier
-        $cashier = User::firstOrCreate(
+        $cashier = User::updateOrCreate(
             ['email' => 'cashier@restaurant.com'],
             [
-                'name' => 'Sarah Cashier',
-                'password' => Hash::make('password123'),
-                'phone' => '4445556666',
+                'name'      => 'Sarah Cashier',
+                'password'  => Hash::make('12345678'),
+                'phone'     => '4445556666',
                 'is_active' => true,
             ]
         );
-        $cashier->assignRole('cashier');
+        if (!$cashier->hasRole('cashier')) {
+            $cashier->assignRole('cashier');
+        }
 
         // Kitchen Staff
-        $kitchen = User::firstOrCreate(
+        $kitchen = User::updateOrCreate(
             ['email' => 'kitchen@restaurant.com'],
             [
-                'name' => 'Mike Chef',
-                'password' => Hash::make('password123'),
-                'phone' => '7778889999',
+                'name'      => 'Mike Chef',
+                'password'  => Hash::make('12345678'),
+                'phone'     => '7778889999',
                 'is_active' => true,
             ]
         );
-        $kitchen->assignRole('kitchen_staff');
+        if (!$kitchen->hasRole('kitchen_staff')) {
+            $kitchen->assignRole('kitchen_staff');
+        }
     }
 }

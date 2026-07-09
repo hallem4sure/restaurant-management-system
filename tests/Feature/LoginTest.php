@@ -16,10 +16,34 @@ class LoginTest extends TestCase
         $this->seed();
 
         $response = $this->post('/login', [
-            'email' => 'admin@restaurant.com',
-            'password' => 'password123',
+            'email'    => 'admin@restaurant.com',
+            'password' => '12345678',
         ]);
 
         $response->assertRedirect('admin/dashboard');
+    }
+
+    public function test_kitchen_staff_redirects_to_kitchen_dashboard()
+    {
+        $this->seed();
+
+        $response = $this->post('/login', [
+            'email'    => 'kitchen@restaurant.com',
+            'password' => '12345678',
+        ]);
+
+        $response->assertRedirect('admin/kitchen');
+    }
+
+    public function test_invalid_credentials_rejected()
+    {
+        $this->seed();
+
+        $response = $this->post('/login', [
+            'email'    => 'admin@restaurant.com',
+            'password' => 'wrongpassword',
+        ]);
+
+        $response->assertSessionHasErrors('email');
     }
 }

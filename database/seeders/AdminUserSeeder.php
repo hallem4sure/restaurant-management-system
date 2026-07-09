@@ -13,18 +13,17 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = User::firstOrCreate(
+        $admin = User::updateOrCreate(
             ['email' => 'admin@restaurant.com'],
             [
-                'name' => 'Super Admin',
-                'password' => Hash::make('password123'),
-                'phone' => '1234567890',
-                'is_active' => true,
+                'name'              => 'Super Admin',
+                'password'          => Hash::make('12345678'),
+                'phone'             => '1234567890',
+                'is_active'         => true,
                 'email_verified_at' => now(),
             ]
         );
 
-        // Assign the admin role
         if (!$admin->hasRole('admin')) {
             $admin->assignRole('admin');
         }
