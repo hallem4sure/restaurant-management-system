@@ -125,57 +125,57 @@ Every step of this process is strictly isolated by a robust role-based access co
 ## Screenshots
 
 ### Dashboard
-![Dashboard](docs/images/dashboard.png)
+![Dashboard](docs/images/dashboard.PNG)
 
 ---
 
 ### Login
-![Login](docs/images/login.png)
+![Login](docs/images/login.PNG)
 
 ---
 
 ### Users
-![Users](docs/images/users.png)
+![Users](docs/images/users.PNG)
 
 ---
 
 ### Menu
-![Menu](docs/images/menu.png)
+![Menu](docs/images/menu.PNG)
 
 ---
 
 ### Tables
-![Tables](docs/images/tables.png)
+![Tables](docs/images/tables.PNG)
 
 ---
 
 ### Reservations
-![Reservations](docs/images/reservations.png)
+![Reservations](docs/images/reservations.PNG)
 
 ---
 
 ### Orders
-![Orders](docs/images/orders.png)
+![Orders](docs/images/orders.PNG)
 
 ---
 
 ### Kitchen
-![Kitchen](docs/images/kitchen.png)
+![Kitchen](docs/images/kitchen.PNG)
 
 ---
 
 ### Billing
-![Billing](docs/images/billing.png)
+![Billing](docs/images/billing.PNG)
 
 ---
 
 ### Reports
-![Reports](docs/images/reports.png)
+![Reports](docs/images/reports.PNG)
 
 ---
 
 ### Settings
-![Settings](docs/images/settings.png)
+![Settings](docs/images/settings.PNG)
 
 ---
 
