@@ -1,66 +1,306 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
+  <h1>Restaurant Management System</h1>
+  <p>A full-featured Restaurant Management System built on Laravel 12. Designed to handle secure, role-based workflows across daily restaurant operations.</p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+  <p>
+    <img src="https://img.shields.io/badge/Laravel-12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel 12" />
+    <img src="https://img.shields.io/badge/PHP-8.2-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.2" />
+    <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
+    <img src="https://img.shields.io/badge/PHPUnit-green?style=for-the-badge" alt="PHPUnit" />
+    <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap" />
+    <img src="https://img.shields.io/badge/AdminLTE-blue?style=for-the-badge" alt="AdminLTE" />
+    <img src="https://img.shields.io/badge/Version-1.0-blue?style=for-the-badge" alt="Version 1.0" />
+    <img src="https://img.shields.io/badge/License-None-lightgrey?style=for-the-badge" alt="License: None" />
+  </p>
+</div>
 
-## About Laravel
+<br>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+| Project | Value |
+|---------|------|
+| **Framework** | Laravel 12 |
+| **PHP** | 8.2 |
+| **Database** | MySQL |
+| **Roles** | 4 |
+| **Automated Tests** | 61 |
+| **Assertions** | 155 |
+| **Main Modules** | 15+ |
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<br>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Table of Contents
 
-## Learning Laravel
+- [About the Project](#about-the-project)
+- [Features](#features)
+- [Key Highlights](#key-highlights)
+- [Screenshots](#screenshots)
+- [Technology Stack](#technology-stack)
+- [User Roles](#user-roles)
+- [Installation](#installation)
+- [Demo Accounts](#demo-accounts)
+- [Testing](#testing)
+- [Project Structure](#project-structure)
+- [Security](#security)
+- [Future Improvements](#future-improvements)
+- [Author](#author)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## About the Project
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The Restaurant Management System provides a streamlined platform to digitize the entire operational flow of a modern restaurant. 
 
-## Laravel Sponsors
+The application facilitates a natural workflow: it begins with managing customer **Reservations**, which transition into active **Orders** once guests are seated. These orders are instantly transmitted to the **Kitchen** through a dedicated display system, allowing chefs to manage their preparation queue in real time. Once the meal concludes, the workflow moves to **Billing** for invoice generation, discount application, and payment processing. Finally, all operations feed into comprehensive **Reports**, giving management actionable insights on revenue and staff performance.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Every step of this process is strictly isolated by a robust role-based access control system, ensuring staff members only interact with the tools necessary for their specific responsibilities.
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Features
 
-## Contributing
+### 🔐 Authentication & Authorization
+- Authentication
+- RBAC
+- Policies
+- Permission-based UI
+- Dynamic Sidebar
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 🍽 Menu Management
+- Sections
+- Categories
+- Subcategories
+- Items
+- Tags
+- Image Upload
+- Availability
+- Offers
 
-## Code of Conduct
+### 📦 Restaurant Operations
+- Tables
+- Reservations
+- Orders
+- Kitchen Display
+- Order Status
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 💳 Billing & POS
+- Invoice Generation
+- Payments
+- Taxes
+- Discounts
+- Service Charges
 
-## Security Vulnerabilities
+### 📊 Reporting & Analytics
+- Dashboard KPIs
+- Charts
+- CSV Export
+- Print Reports
+- Revenue Analysis
+- Sales Analysis
+- Menu Analytics
+- Staff Performance
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### ⚙ Administration
+- Users
+- Roles
+- Permissions
+- Restaurant Settings
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## ⭐ Key Highlights
+
+- ✔ Role-Based Access Control
+- ✔ Service Layer Architecture
+- ✔ Automated Testing
+- ✔ Dashboard Analytics
+- ✔ Kitchen Display System
+- ✔ CSV Export
+- ✔ Print-ready Reports
+- ✔ Image Upload
+- ✔ Policy-based Authorization
+- ✔ Responsive Admin Interface
+
+---
+
+## Screenshots
+
+### Login
+![Login](docs/images/login.png)
+
+---
+
+### Dashboard
+![Dashboard](docs/images/dashboard.png)
+
+---
+
+### Users
+![Users](docs/images/users.png)
+
+---
+
+### Menu
+![Menu](docs/images/menu.png)
+
+---
+
+### Tables
+![Tables](docs/images/tables.png)
+
+---
+
+### Reservations
+![Reservations](docs/images/reservations.png)
+
+---
+
+### Orders
+![Orders](docs/images/orders.png)
+
+---
+
+### Kitchen
+![Kitchen](docs/images/kitchen.png)
+
+---
+
+### Billing
+![Billing](docs/images/billing.png)
+
+---
+
+### Reports
+![Reports](docs/images/reports.png)
+
+---
+
+### Settings
+![Settings](docs/images/settings.png)
+
+---
+
+## Technology Stack
+
+| Technology | Description |
+|------------|-------------|
+| **Laravel 12** | Core PHP Framework |
+| **PHP 8.2** | Programming Language |
+| **MySQL** | Relational Database |
+| **Blade** | Templating Engine |
+| **Bootstrap 4** | CSS Framework |
+| **AdminLTE 3** | Admin Dashboard Template |
+| **Chart.js** | Data Visualization |
+| **Spatie Laravel Permission** | Role-Based Access Control |
+| **Intervention Image** | Image Handling |
+| **PHPUnit** | Automated Testing |
+
+---
+
+## User Roles
+
+1. **Admin**
+   Unrestricted access to the entire platform. Manages users, system settings, global menu configurations, and analytical reports.
+2. **Waiter**
+   Handles dining room operations. Manages table occupancy, creates and updates customer orders, and oversees reservations.
+3. **Cashier**
+   Manages financial transactions. Generates invoices from completed orders, processes cash payments, and accesses specific billing reports.
+4. **Kitchen Staff**
+   Operates strictly within the Kitchen Display System. Views incoming food orders, updates individual item statuses, and notifies staff when dishes are ready.
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/hallem4sure/Restaurant_System.git
+cd Restaurant_System
+
+cp .env.example .env
+
+composer install
+
+php artisan key:generate
+
+php artisan migrate --seed
+
+php artisan storage:link
+
+php artisan serve
+```
+
+---
+
+## Demo Accounts
+
+| Role | Email | Password |
+|---|---|---|
+| **Admin** | `admin@restaurant.com` | `12345678` |
+| **Waiter** | `waiter@restaurant.com` | `12345678` |
+| **Cashier** | `cashier@restaurant.com` | `12345678` |
+| **Kitchen** | `kitchen@restaurant.com` | `12345678` |
+
+---
+
+## Testing
+
+The application is thoroughly covered by an automated test suite to ensure reliability across all workflows and role permissions.
+
+- **61 Tests**
+- **155 Assertions**
+- **All Passing**
+
+```bash
+php artisan test
+```
+
+---
+
+## Project Structure
+
+```text
+app/
+    Http/
+    Models/
+    Policies/
+    Services/
+resources/
+    views/
+routes/
+database/
+tests/
+```
+
+---
+
+## Security
+
+The platform maintains a highly secure environment through multiple integrated layers:
+- **Authentication**: Secure session management for all user logins.
+- **Policies**: Fine-grained authorization classes paired with Eloquent models to protect CRUD operations.
+- **RBAC**: Spatie-powered role and permission verification directly on application routes.
+- **Validation**: Strict `FormRequest` validation classes prevent malformed data injection.
+- **CSRF**: Automatic Cross-Site Request Forgery protection on all mutating requests.
+- **Password Hashing**: Secure bcrypt password encryption.
+- **UI Guards**: Blade directives dynamically hide inaccessible actions and links to prevent unauthorized interactions.
+
+---
+
+## Future Improvements
+
+- Inventory Management
+- REST API
+- Mobile Application
+- QR Menu
+- Online Payments
+
+---
+
+## Author
+
+**Abdelhalim Abdelrahim Abdelrhman Abdellah**  
+GitHub: [https://github.com/hallem4sure](https://github.com/hallem4sure)
+
+---
+
+*Built with Laravel 12 for learning, portfolio, and restaurant management scenarios.*  
+*If you found this project interesting, consider giving it a ⭐ on GitHub.*
